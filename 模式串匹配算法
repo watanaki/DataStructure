@@ -1,0 +1,35 @@
+
+#include <iostream>
+#include<fstream>
+using namespace std;
+#define MAXSIZE 100
+int index_BF(const string& a, const string& b, int pos = 1) {
+	int i = pos-1, j = 0;
+	while (i < a.length() && j < b.length()) {
+		if (a[i] == b[j]) {
+			i++; j++;
+		}
+		else
+		{
+			i = i - j + 1;
+			j = 0;
+		}
+	}
+	if (j == b.length())
+		return i - j + 1;
+	else return -1;
+}
+int main() {
+	cout << "请输入模式串：\n";
+	string a;
+	cin >> a;
+	cout << "请输入子串：\n";
+	string b;
+	cin >> b;
+	int index = index_BF(a, b);
+	if (index == -1)
+		cout << "模式串中无所查找子串！" << endl;
+	else
+		cout << "你所查找的子串在模式串的第" << index <<"个位置";
+	return 0;
+}
