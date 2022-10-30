@@ -1,0 +1,75 @@
+
+#include <iostream>
+#include<fstream>
+using namespace std;
+#define MAXSIZE 100
+class BtNode {	
+public:
+	char data;
+	BtNode* lchild, * rchild;
+	BtNode() { data = 0; lchild = NULL; rchild = NULL; }
+	BtNode(char data, BtNode* lc = NULL, BtNode* rc = NULL) :data(data), lchild(lc), rchild(rc){}
+};
+class BiTree {
+public:
+	BtNode* root;
+	int NodeNum;
+	BiTree() { root = NULL; NodeNum = 0; }
+	void CreatTree(BtNode**);
+bool IsTreeEmpty() { return (this->root == NULL) ? true : false; }
+void PreOrderTraverse(BtNode*);
+void InOrderTraverse(BtNode*);
+void PostOrderTraverse(BtNode*);
+};
+void BiTree::CreatTree(BtNode** p) {//直接传root指针无法更改其自身指向，使用二级指针以便在函数中更改根结点指针指向
+	char ch;                        //先序创建二叉树
+	cin >> ch;
+	if (ch == '#') { *p = NULL; return; }
+	*p = new BtNode(ch);
+	NodeNum++;
+	CreatTree(&(*p)->lchild);
+	CreatTree(&(*p)->rchild);
+}
+void BiTree::PreOrderTraverse(BtNode *p) {//先序
+	if (p == NULL)
+		return;
+	else {
+		cout << p->data << " ";
+		PreOrderTraverse(p->lchild);
+		PreOrderTraverse(p->rchild);
+	}
+}
+void BiTree::InOrderTraverse(BtNode* p)//中序
+{
+	if (p == NULL)
+		return;
+	else {
+		InOrderTraverse(p->lchild);
+		cout << p->data << " ";
+		InOrderTraverse(p->rchild);
+	}
+}
+void BiTree::PostOrderTraverse(BtNode* p) 
+{
+	if (p == NULL)
+		return;
+	else {
+		PostOrderTraverse(p->lchild);
+		PostOrderTraverse(p->rchild);
+		cout << p->data << " ";
+	}
+}
+int main() {
+	BiTree A;
+	A.CreatTree(&(A.root));
+	cout << "先序：";
+	A.PreOrderTraverse(A.root);
+	cout << endl;
+	cout << "中序：";
+	A.InOrderTraverse(A.root);
+	cout << endl;
+	cout << "后序：";
+	A.PostOrderTraverse(A.root);
+	return 0;
+}
+
