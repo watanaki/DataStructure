@@ -1,4 +1,4 @@
-
+# 字符二叉树，"#"代表结点为空
 #include <iostream>
 #include<fstream>
 using namespace std;
