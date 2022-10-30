@@ -62,6 +62,7 @@ void BiTree::PostOrderTraverse(BtNode* p)
 int main() {
 	BiTree A;
 	A.CreatTree(&(A.root));
+	cout << "当前结点数：" << A.NodeNum << endl;
 	cout << "先序：";
 	A.PreOrderTraverse(A.root);
 	cout << endl;
