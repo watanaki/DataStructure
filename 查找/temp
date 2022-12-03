@@ -3,36 +3,57 @@
 #include"Function.h"
 using namespace std;
 template<typename T>
-int ArrayLength(T &a) {
+int ArrayLength(T& a) {
 	return sizeof(a) / sizeof(a[0]);
 }
 int BinSearch(int a[], int t, int n) {
-
+	int mid, low = 1, high = n - 1;
+	while (low <= high) {
+		mid = (low + high) / 2;
+		if (a[mid] == t)
+			return mid;
+		else if (a[mid] > t)
+			high = mid - 1;
+		else
+			low = mid + 1;
+	}
 	return 0;
 }
-int SeqSearch(int a[],int t,int n) {
+int SeqSearch(int a[], int t, int n) {
 	int i = n - 1;
 	a[0] = t;
-	while (a[i] != t) 
+	while (a[i] != t)
 		i--;
 	return i;
 }
 void main() {
 	int a[] = { 0,1,3,5,8,20,55,57,61,79,80,91 };
 	int n = ArrayLength(a);
-	cout << n<< endl;
+	cout << n << endl;
+	int s=0;
+	while(1) {
 	cout << "请输入要查找的数字:";
-	int s;
-	if (cin >> s) {
-		int i = SeqSearch(a, s,n);
-		if (i == 0)
-		{
-			cout << "数组中没有你要查找的数字！" << endl;
-			return;
-		}
-		cout << s << "在数组中的下标为：" << i << endl;
-		return;
+	if (!(cin >> s))
+		break;
+		int i = SeqSearch(a, s, n);
+		if (i)
+		cout <<"顺序查找\n" << s << " 在数组中的下标为：" << i << endl;
+		else	
+		cout << "数组中没有你要查找的数字！" << endl;		
+		 i = BinSearch(a, s, n);
+		 if (i)
+			 cout << "二分查找\n" << s << " 在数组中的下标为：" << i << endl;
+		 else
+			 cout << "数组中没有你要查找的数字！" << endl;
+		//return;
 	}
-		cout << "请输入数字！" << endl;
-		
+	cout << "请输入数字！" << endl;
+	return;
+	/*int s;
+	if (!(cin >> s))
+		cout << "int";
+	else {
+		cout << "ERROR" << endl;
+		return;
+	}*/
 }
